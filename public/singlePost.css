@@ -1,14 +1,15 @@
-body {
-    
+body{
+    background-color: #dfffcf;
+    background-image: url("https://www.transparenttextures.com/patterns/football-no-lines.png");
 }
-
 .container{
     padding: 40px 0px;
-    background: beige;
+    background: rgb(158, 158, 131);
     padding: 20px;
     border-radius: 20px 20px 0px 0px;
     height: 100vh;
     margin-top: 20px;
+    opacity: 90%;
 }
 
 .btn{

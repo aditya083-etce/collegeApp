@@ -1,11 +1,14 @@
 const Post = require("../model/post");
+const User = require("../model/user");
 
 exports.getInputForm = (req, res) => {
     res.render("create-post.ejs");
 }
 
 exports.createPost = async (req, res) => {
-    let {content, title} = req.body;
+    const username = res.locals.username;
+    const user = res.locals.user;
+    let {content, title, type} = req.body;
 
     let hashTags = content.split(" ").filter(st => st.startsWith("#"));
     console.log(hashTags);
@@ -19,17 +22,25 @@ exports.createPost = async (req, res) => {
 
     try {
         const post = await Post.create({
-            title,
-            content,
-            type: "Blog",
-            author: req.session.user.username,
+            title: title,
+            content: content,
+            type: type,
+            author: username,
             date: new Date(),
             upvote: 0,
             hashTags: hashTags,
             upvoteLists : []
         })
-        const posts = await Post.find({});
-        res.render("posts.ejs", {posts: posts});
+
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            {
+                $addToSet: {
+                    posts: post._id,
+                },
+            }
+        )
+        res.render("home.ejs");
     } catch (err) {
         console.log(err)
     }

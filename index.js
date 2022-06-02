@@ -16,7 +16,6 @@ const profileRoutes = require("./routes/profile")
 
 const MONGODB_URI = "mongodb://localhost:27017/collegeApp"
 
-
 const store = new MongoDBStore({uri: MONGODB_URI, collection: 'sessions'})
 
 let csrfProtection = csrf()

@@ -1,26 +1,25 @@
 body{
     background-color: #dfffcf;
     background-image: url("https://www.transparenttextures.com/patterns/football-no-lines.png");
-    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 .navbar{
-    background-color: #85977c;
+    background-color: #434d3f!important;
     background-image: url("https://www.transparenttextures.com/patterns/football-no-lines.png");
 }
+
+.nav-left{
+    margin: 0px 20px;
+}
+
 .nav-link{
-    color: rgb(255, 255, 255);
+    font-size: 20px;
+    letter-spacing: 3px;
 }
-.logo-image{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-top: -6px;
-    margin-left: 40px;
-}
-#navmain{
-    margin-left: 100px;
-}
-.navitem{
-    padding:0px 200px ;
+
+#mySelect{
+    position: absolute;
+    top: 60px;
+    height: 35px;
+    width: 210px;
+    border-radius: 5px;
 }

@@ -1,80 +1,46 @@
 
-/* homepage */
-.homepage{
-    background-image: url(/img/welcome.jpg);
-    height: 90vh;
-    background-repeat: no-repeat;
-    background-size: 240vh;
-   
-    position: relative;
-}
 #homepage-text{
-  
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 60px;
-    color: white;
+    color: rgb(205, 226, 192);
+    letter-spacing: 7px;
     
 }
 
-/* Main Box Recent*/
-#main_box {
-    margin: 90px;
-    height: 75vh;
-    border-radius: 10px;
-    align-items: center;
+body{
+  background-color: #dfffcf;
+  background-image: url("https://www.transparenttextures.com/patterns/football-no-lines.png");
 }
-.card {
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid black;
-    margin: 20px;
+  
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
+a:hover, a:focus {
+  text-decoration: none;
+}
+  
+footer {
+  background: rgb(53, 66, 44);
+  opacity: 90%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
-body {
-    background-color: white;
-  }
-  
-  .text-small {
-    font-size: 0.9rem;
-  }
-  
-  a {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-  
-  a:hover, a:focus {
-    text-decoration: none;
-  }
-  
-  .form-control {
-    background: #212529;
-    border-color: #545454;
-  }
-  
-  .form-control:focus {
-    background: #212529;
-  }
-  
-  footer {
-    background: rgb(26,57,99) ;
-  }
+.footer-elements{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
-  .footer-elements{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .list-unstyled{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
-  
-  
+.list-unstyled{
+  display: grid;
+  grid-row-gap: 30px;
+}

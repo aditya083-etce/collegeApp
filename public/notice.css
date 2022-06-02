@@ -1,5 +1,13 @@
+body{
+    background-color: #dfffcf;
+    background-image: url("https://www.transparenttextures.com/patterns/football-no-lines.png");
+}
 .container {
     margin-top: 40px;
+}
+
+.card{
+    opacity: 80%;
 }
 
 .more{

@@ -1,5 +1,5 @@
 const upvoted = () => {
-    const blogId= document.getElementById("blogId").innerHTML;
+    const blogId = document.getElementById("blogId").innerHTML;
 
     const req = new XMLHttpRequest;
     req.onreadystatechange = async function () {
@@ -13,7 +13,7 @@ const upvoted = () => {
 }
 
 // const downvoted = () => {
-//     const blogId= document.getElementById("blogId").innerHTML;
+//     const blogId = document.getElementById("blogId").innerHTML;
 
 //     const req = new XMLHttpRequest;
 //     req.onreadystatechange = async function () {

@@ -1,15 +1,26 @@
 const express = require("express");
-const path = require("path");
-const {getSingleBlog, getAllBlogs, getAllNotices, getUpvoteBlog} = require('../controllers/postController')
+const{ getAllBlogs, getAllNotices, 
+    getAllInterviewExperience, getUpvoteBlog, 
+    getSinglePost, deletePost, 
+    searchPost, getId } = require('../controllers/postController');
+    
 const router = express.Router();
 const isAuth = require("../middlewares/isAuth")
 
-router.get("/singleBlog/:id", getSingleBlog)
+router.get("/singlePost/:id", isAuth, getSinglePost)
+
+router.get("/deletePost/:id", isAuth, deletePost);
+
+router.get("/searchPost", searchPost);
+
+router.post("/getId", getId);
 
 router.get("/blog/vote/:id/:isUpvote", isAuth, getUpvoteBlog)
 
-router.get("/blog", getAllBlogs);
+router.get("/blogs", getAllBlogs);
 
-router.get("/notice", getAllNotices);
+router.get("/notices", getAllNotices);
+
+router.get("/interviews", getAllInterviewExperience);
 
 module.exports = router;

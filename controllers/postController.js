@@ -1,67 +1,66 @@
+const req = require("express/lib/request");
 const Post = require("../model/post");
 
 exports.getUpvoteBlog = async (req, res) => {
     try {
         const blogId = req.params.id;
         const isUpvote = req.params.isUpvote;
-        const userId = req.session.user._id._id.toString();
+        const user = res.locals.user;
 
-        const blog = await Post.findById({_id: blogId});
-        if (isUpvote === "1") { 
-            console.log(userId);
-            blog.upvoteLists.push(userId);
-            let updatedUpvotedLists = []
+        const userID = user._id.toString();
+        console.log(userID);
+
+        const blog = await Post.findById({ _id: blogId });
+        if (isUpvote === "1") {
 
             blog.upvoteLists.map(id => {
-                if (userId !== id) {
-                    updatedUpvotedLists.push(id)
+                if (userID !== id) {
+                    blog.upvoteLists.push(userID);
                 }
-                // if (userId._id.toString() !== id._id.toString()) {
-                //     updatedUpvotedLists.push(id)
-                // }
-            })
+            });
 
-            console.log(updatedUpvotedLists);
+            const updatedBlog = await blog.save();
 
+            let data = await JSON.stringify({ upvote: updatedBlog.upvoteLists.length });
 
-            // let updatedUpvotedLists = blog.upvoteLists.filter(id => id == userId)
-            // console.log(updatedUpvotedLists);
-
-            // const updatedBlog = await blog.save();
-            const updatedBlog = blog;
-
-            let data = await JSON.stringify({upvote: updatedBlog.upvoteLists.length})
-            res.send(data)
+            res.send(data);
         }
-        // else
-        //     blog.upvote -= 1;
-
 
     } catch (err) {
         console.log(err)
     }
 }
 
-
-exports.getSingleBlog = async (req, res) => {
+exports.getSinglePost = async (req, res) => {
     try {
         const id = req.params.id;
-        const blog = await Post.findById({_id: id})
-        res.render("singleBlog.ejs", {blog: blog})
+        const data = await Post.findById(id);
+        console.log(typeof (data.date));
+        res.render("singlePost", { data: data });
     } catch (err) {
         console.log(err)
     }
-}
+};
+
+exports.deletePost = async (req, res) => {
+    try {
+        const id = req.params.id;
+        Post.findByIdAndRemove(id, (err, doc) => {
+            if (!err) {
+                res.redirect('/profile');
+            } else {
+                console.log('Failed to delete');
+            }
+        })
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 exports.getAllBlogs = async (req, res) => {
     try {
-        const blogs = await Post.find({});
-        // let blogs_eg = {
-        //     blogs: blogs
-        // }
-        // let data = await JSON.stringify(blogs_eg)
-        // res.send(data);
-        res.render("blog.ejs", {blogs});
+        const blogs = await Post.find({ type: 'Blog' });
+        res.render("blog.ejs", { blogs });
     } catch (err) {
         console.log(err);
     }
@@ -69,9 +68,30 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getAllNotices = async (req, res) => {
     try {
-        const notices = await Post.find({type: 'notice'});
-        res.render("notice.ejs", {notices});
+        const notices = await Post.find({ type: 'Notice' });
+        res.render("notice.ejs", { notices });
     } catch (err) {
         console.log(err);
     }
 };
+
+exports.getAllInterviewExperience = async (req, res) => {
+    try {
+        const interviews = await Post.find({ type: 'Interview' });
+        res.render("interview.ejs", { interviews });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.searchPost = async (req, res) => {
+    const value = req.query.value;
+    const data = await Post.find({
+        title: { $regex: value, $options: "$i" }
+    }, { _id: 1, title: 1 }).limit(5);
+    res.send(data);
+};
+
+exports.getId = async (req, res) => {
+    console.log(req.body);
+}
