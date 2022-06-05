@@ -37,7 +37,7 @@ function searchHandler() {
             // console.log(selectList);
         }
     }
-    req.open("GET", "http://localhost:3000/searchPost?value=" + text, true);
+    req.open("GET", "https://college-644-blog.herokuapp.com/searchPost?value=" + text, true);
     req.send();
 }
 
