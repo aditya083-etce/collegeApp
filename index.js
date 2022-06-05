@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -14,7 +15,7 @@ const createRoutes = require("./routes/create");
 const searchRoutes = require("./routes/search");
 const profileRoutes = require("./routes/profile")
 
-const MONGODB_URI = "mongodb://localhost:27017/collegeApp"
+const MONGODB_URI = process.env.DATABASE;
 
 const store = new MongoDBStore({uri: MONGODB_URI, collection: 'sessions'})
 
@@ -55,10 +56,13 @@ app.get("/error", (req, res) => {
     res.render("error.ejs", {code: "404"});
 });
 
-app.listen(3000, () => {
-    console.log("Listening at 3000");
-});
-
-mongoose.connect(MONGODB_URI, () => {
-    console.log("connected to db");
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
+.then(() => {
+    console.log('connected to dB');
+})
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Listening in ${PORT}`));
