@@ -35,7 +35,7 @@
                                     <%= posts[i].title %>
                                 </h4>
                                 <p class="card-text text-muted">
-                                    <%= posts[i].content %>
+                                    <%= posts[i].content.substring(0, 100) + " ..." %>
                                 </p>
                                 <a href="/singlePost/<%= posts[i]._id %>"><button class="btn btn-md btn-outline-info">Read More</button></a>
                                 <a href="/deletePost/<%= posts[i]._id %>"><button class="btn btn-md btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button></a>
@@ -43,7 +43,7 @@
                             <div
                                 class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
                                 <div class="views">
-                                    <%= posts[i].date %>
+                                    <%= posts[i].date.toLocaleDateString() %>
                                 </div>
                                 <div class="stats">
                                     <i class="fa-solid fa-heart"></i>

@@ -17,12 +17,13 @@ function searchHandler() {
 
             data.map(obj => value.push({title: obj.title, id: obj._id}))
 
-            console.log(value);
+            // console.log(value);
 
             // Create and append select list
             let selectList = document.createElement("select");
             selectList.id = "mySelect";
             selectList.name = "postname";
+            // selectList.onclick = searchPostbyTitle();
             myParent.appendChild(selectList);
 
             // Create and append the options
@@ -30,10 +31,25 @@ function searchHandler() {
                 let option = document.createElement("option");
                 option.value = value[i].id;
                 option.text = value[i].title;
+                option.id = 'optionId'
                 selectList.appendChild(option);
             }
+            // console.log(selectList);
         }
     }
     req.open("GET", "http://localhost:3000/searchPost?value=" + text, true);
     req.send();
 }
+
+function searchPostbyTitle() {
+    console.log('clicked')
+    const optionTitle = this.options[this.selectedIndex].getAttribute('value');
+    console.log(optionTitle)
+}
+
+// onchange="alert(this.options[this.selectedIndex].getAttribute('isred'));
+
+// let a = document.createElement("a");
+// a.href = '/singlePost/' + value[i].id;
+// a.text = value[i].title;
+// option.appendChild(a);

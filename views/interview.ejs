@@ -21,12 +21,12 @@
                   <%= interviews[i].title %>
                 </h4>
                 <p class="card-text text-muted">
-                  <%= interviews[i].content %>
+                  <%= interviews[i].content.substring(0, 100) + " ..." %>
                 </p>
                 <a href="/singlePost/<%= interviews[i]._id %>"><button class="btn btn-md btn-outline-info">Read More</button></a>
               </div>
               <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                <div class="views"><%= interviews[i].date %> </div>
+                <div class="views"><%= interviews[i].date.toLocaleDateString() %> </div>
                 <div class="stats">
                   <i class="fa-solid fa-heart"></i> <%= interviews[i].upvoteLists.length %>
                   <!-- <i class="fa-solid fa-heart-crack"></i> 12 -->

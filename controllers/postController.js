@@ -1,33 +1,55 @@
-const req = require("express/lib/request");
 const Post = require("../model/post");
 
+// exports.getUpvoteBlog = async (req, res) => {
+//     try {
+//         const blogId = req.params.id;
+//         const isUpvote = req.params.isUpvote;
+//         const user = res.locals.user;
+
+//         const userID = user._id.toString();
+
+//         if (isUpvote === "1") {
+//             const updatedBlog= await Post.findByIdAndUpdate(blogId,{
+//                 $addToSet: {
+//                     upvoteLists: userID,
+//                 },
+//             });
+
+//             let data = await JSON.stringify({ upvote: updatedBlog.upvoteLists.length });
+
+//             res.send(data);
+//         }
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
+
 exports.getUpvoteBlog = async (req, res) => {
+    const blogId = req.params.id;
+    const isUpvote = req.params.isUpvote;
+    const userId = req.session.user._id._id.toString();
     try {
-        const blogId = req.params.id;
-        const isUpvote = req.params.isUpvote;
-        const user = res.locals.user;
-
-        const userID = user._id.toString();
-        console.log(userID);
-
-        const blog = await Post.findById({ _id: blogId });
-        if (isUpvote === "1") {
-
-            blog.upvoteLists.map(id => {
-                if (userID !== id) {
-                    blog.upvoteLists.push(userID);
+        const post = await Post.findById(blogId);
+        let alreadyUpVoted = false;
+        if (isUpvote == 1) {
+            post.upvoteLists.map( id => {
+                if (userId === id) {
+                    alreadyUpVoted = true;
                 }
-            });
+            })
 
-            const updatedBlog = await blog.save();
+            let updatedUpVotedList = post.upvoteLists.filter(id => userId !== id);
 
-            let data = await JSON.stringify({ upvote: updatedBlog.upvoteLists.length });
+            if (!alreadyUpVoted) updatedUpVotedList.push(userId);
 
+            post.upvoteLists = updatedUpVotedList;
+            const updatedPost = await post.save();
+            let data = await JSON.stringify({ upvote: updatedPost.upvoteLists.length });
             res.send(data);
         }
-
-    } catch (err) {
-        console.log(err)
+    }
+    catch (err) {
+        console.log(err);
     }
 }
 
