@@ -31,7 +31,6 @@ ul{
 
 .footer{
   background-color: #434d3f;
-  opacity: 90%;
   padding: 20px 0 0 0;
   width: 100%;
   position: fixed;
@@ -45,7 +44,7 @@ ul{
 
 .footer-col{
   width: 50%;
-  padding: 0 100px;
+  padding: 0 10px;
 }
 
 .footer-col h4{
